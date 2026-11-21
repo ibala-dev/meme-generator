@@ -1,10 +1,22 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 export default function Main() {
 const [meme,setMeme] = useState({
     topText:"One does not simply",
-    bottomText:"Walk into a mirror",
+    bottomText:"Walk into Mordor",
     imgUrl:"http://i.imgflip.com/1bij.jpg"
 })
+  const [allMemes, setAllMemes] = useState([])
+useEffect(()=>{
+    fetch("https://api.imgflip.com/get_memes").then(res=>{
+        res.json().then(data=>{
+            setAllMemes(data.data.memes)
+            console.log(allMemes)
+
+        })
+    })
+},[])
+
+
 function handleChange(event) {
     const {value,name} = event.currentTarget
     setMeme(prevMeme=> ({
