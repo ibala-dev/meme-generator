@@ -30,7 +30,8 @@ useEffect(()=>{
 function handleChange(event) {
     const {value,name} = event.currentTarget
     setMeme(prevMeme=> ({
-        ...prevMeme,imgUrl: randomUrl
+        ...prevMeme,[name]:value
+        
     }))
 }
     return (
