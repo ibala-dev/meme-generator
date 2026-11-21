@@ -11,16 +11,26 @@ useEffect(()=>{
         res.json().then(data=>{
             setAllMemes(data.data.memes)
             console.log(allMemes)
+            const randomIndex = Math.floor(Math.random() * allMemes.length)
+            const randomUrl = allMemes[randomIndex].url
 
         })
     })
 },[])
 
-
+   function getNewMemeImage() {
+        if (allMemes.length === 0) return
+        const randomIndex = Math.floor(Math.random() * allMemes.length)
+        const randomUrl = allMemes[randomIndex].url
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            imgUrl: randomUrl
+        }))
+    }
 function handleChange(event) {
     const {value,name} = event.currentTarget
     setMeme(prevMeme=> ({
-        ...prevMeme,[name]:value
+        ...prevMeme,imgUrl: randomUrl
     }))
 }
     return (
@@ -46,7 +56,7 @@ function handleChange(event) {
                         
                     />
                 </label>
-                <button>Get a new meme image 🖼</button>
+                <button onClick={getNewMemeImage}>Get a new meme image 🖼</button>
             </div>
             <div className="meme">
                 <img src= {meme.imgUrl}/>
